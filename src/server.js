@@ -21,7 +21,7 @@ app.use(express.json());
 //importing routes
 const clientRoute = require('./routes/cliente');//le aviso que aca estan las rutas
 //routes
-app.use('/', clientRoute);
+app.use('/cliente', clientRoute);
 //app.use(express.urlencoded({extended:false}));//para entender los datos que se envian al server
 //app.use(express.bodyParser());
 

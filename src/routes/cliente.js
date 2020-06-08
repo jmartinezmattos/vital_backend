@@ -20,12 +20,6 @@ router.get('/:id', (req, res)=> {
 //Creating one
 router.post('/', async (req, res)=> {
     
-    /*
-    const cliente = new Cliente({
-        nombre: req.body.nombre
-    })
-    */
-
     const cliente = new Cliente(req.body)
 
     console.log(req.body.nombre)
