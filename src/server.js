@@ -20,9 +20,14 @@ app.use(express.json());
 //importing routes
 const clientRoute = require('./routes/cliente');
 const ejercicioRoute = require('./routes/ejercicio');
+const metricaRoute = require('./routes/metrica');
+const rutinaRoute = require('./routes/rutina');
+
 //routes
 app.use('/clientes', clientRoute);
 app.use('/ejercicios', ejercicioRoute);
+app.use('/rutinas', rutinaRoute);
+app.use('/metricas', metricaRoute);
 
 //app.use(express.urlencoded({extended:false}));//para entender los datos que se envian al server
 //app.use(express.bodyParser());

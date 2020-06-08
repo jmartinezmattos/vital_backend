@@ -13,7 +13,7 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', getClinet,(req, res)=> {
+router.get('/:id', getClient,(req, res)=> {
     res.send(res.cliente)
 })
 
@@ -39,7 +39,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting all
-router.delete('/:id', getClinet, async (req, res)=> {
+router.delete('/:id', getClient, async (req, res)=> {
     try{
         await res.cliente.remove()
         res.json({message: `Cliente con id: ${req.params.id} eliminado`})
@@ -49,7 +49,7 @@ router.delete('/:id', getClinet, async (req, res)=> {
 })
 
 
-async function getClinet(req, res, next){ //faltaria que el get sea segun la cedula
+async function getClient(req, res, next){ //faltaria que el get sea segun la cedula
     let cliente
 
     try{
