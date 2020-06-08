@@ -18,9 +18,12 @@ app.use(express.json());
 
 
 //importing routes
-const clientRoute = require('./routes/cliente');//le aviso que aca estan las rutas
+const clientRoute = require('./routes/cliente');
+const ejercicioRoute = require('./routes/ejercicio');
 //routes
 app.use('/clientes', clientRoute);
+app.use('/ejercicios', ejercicioRoute);
+
 //app.use(express.urlencoded({extended:false}));//para entender los datos que se envian al server
 //app.use(express.bodyParser());
 
