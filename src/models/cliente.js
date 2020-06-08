@@ -1,10 +1,16 @@
 //defino la  'tabla' el esquema para la bdd
 
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);//crea indices
 const Schema = mongoose.Schema;
 
 const ClienteSchema = new Schema({
 
+    cedula:{
+        type:Number,
+        unique : true,
+        index: true,
+    },
     usuario: { 
        type: String
        //required: true

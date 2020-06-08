@@ -13,8 +13,8 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', (req, res)=> {
-    
+router.get('/:id', getClinet,(req, res)=> {
+    res.send(res.cliente)
 })
 
 //Creating one
@@ -34,13 +34,36 @@ router.post('/', async (req, res)=> {
 })
 
 //Updating one
-router.patch('/', (req, res)=> {
-    
+router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
+   
 })
 
 //Deleting all
-router.delete('/:id', (req, res)=> {
-    
+router.delete('/:id', getClinet, async (req, res)=> {
+    try{
+        await res.cliente.remove()
+        res.json({message: `Cliente con id: ${req.params.id} eliminado`})
+    }catch (err){
+        res.status(500).json({message: err.message})
+    }
 })
+
+
+async function getClinet(req, res, next){ //faltaria que el get sea segun la cedula
+    let cliente
+
+    try{
+        cliente = await Cliente.findById(req.params.id)
+        if(cliente == null){
+            return res.status(404).json({message: `No se encuentra el cliente con id ${req.params.id}`})
+        }
+    }catch(err){
+        return res.status(500).json({message: err.message})
+    }
+    res.cliente=cliente //IMPORTANTE ESTO SE USA DESPUES
+    next()
+}
+
+
 
 module.exports = router
