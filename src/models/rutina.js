@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const RutinaSchema = new Schema({
 
     ejercicios: Array,
-    fecha: Date
+    fecha: {
+        type: Date,
+        required:true,
+        default: Date.now
+    }
 
 })
 

@@ -5,10 +5,13 @@ const Schema = mongoose.Schema;
 
 const ClienteSchema = new Schema({
 
-    usuario: String,
+    usuario: { 
+       type: String,
+       required: true
+    },
     password: String,
     nombre: String,
-    nacimiento: String,
+    nacimiento: Date,
     nro_contacto: Number,
     mail: String,
     ejercicios: Array,

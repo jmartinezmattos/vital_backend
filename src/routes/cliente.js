@@ -1,9 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const Cliente = require('../models/cliente')
 
 //Getting all
-router.get('/', (req, res)=> {
-    
+router.get('/', async (req, res)=> {
+    try{
+        const clientes = await Cliente.find()
+        res.json(clientes)
+    }catch{
+        res.status(500).json({message: err.message})
+    }
 })
 
 //Getting one
