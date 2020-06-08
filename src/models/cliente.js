@@ -6,8 +6,8 @@ const Schema = mongoose.Schema;
 const ClienteSchema = new Schema({
 
     usuario: { 
-       type: String,
-       required: true
+       type: String
+       //required: true
     },
     password: String,
     nombre: String,
@@ -17,7 +17,11 @@ const ClienteSchema = new Schema({
     ejercicios: Array,
     metricas_iniciales: Array,
     metricas_avance: Array,
-    metricas_objetivo: Array 
+    metricas_objetivo: Array,
+    fecha_creacion: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 

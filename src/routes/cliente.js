@@ -18,8 +18,25 @@ router.get('/:id', (req, res)=> {
 })
 
 //Creating one
-router.post('/', (req, res)=> {
+router.post('/', async (req, res)=> {
     
+    /*
+    const cliente = new Cliente({
+        nombre: req.body.nombre
+    })
+    */
+
+    const cliente = new Cliente(req.body)
+
+    console.log(req.body.nombre)
+    console.log(cliente)   
+
+    try{
+        const newClient = await cliente.save()
+        res.status(201).json(newClient)
+    }catch{
+        res.status(400).json({message: err.message})
+    }
 })
 
 //Updating one
