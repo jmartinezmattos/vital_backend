@@ -6,17 +6,20 @@ const app = express()
 const mongoose = require('mongoose')
 
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
+//mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
 
-const db = mongoose.conection
+mongoose.connect('mongodb://localhost/suscribers', { useNewUrlParser: true})
 
-db.on('error', (error) => console.error(error))
-db.once('open', )
+//conectar a bdd
+mongoose.connect('mongodb://localhost/vitalfit')
+    .then(db => console.log('DB connected'))//tira este mensaje si se conecto
+    .catch(err => console.log(err))//tira esto si no conecto
+
 
 //importing routes
-const indexRoutes = require('./src/routes/cliente');//le aviso que aca estan las rutas
+const clientRoute = require('./routes/cliente');//le aviso que aca estan las rutas
 //routes
-app.use('/', indexRoutes);
+app.use('/', clientRoute);
 
 app.listen(3000, () => console.log('Server started at 3000'))
 
