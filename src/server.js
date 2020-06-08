@@ -5,6 +5,9 @@ const app = express()
 
 const mongoose = require('mongoose')
 
+
+var server_port = 3000 //puerto del server
+
 //mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
 
 //mongoose.connect('mongodb://localhost/suscribers', { useNewUrlParser: true})
@@ -33,8 +36,7 @@ app.use('/metricas', metricaRoute);
 //app.use(express.bodyParser());
 
 
-app.listen(3000, () => console.log('Server started at 3000'))
-
+app.listen(server_port, () => console.log(`Server started at port ${server_port}`))
 
 
 
