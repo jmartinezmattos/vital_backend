@@ -13,7 +13,7 @@ app.set('port', process.env.PORT || 3000)
 //mongoose.connect('mongodb://localhost/suscribers', { useNewUrlParser: true})
 
 //conectar a bdd
-mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect("mongodb+srv://hoomerin:donas@cluster0-vfkxy.mongodb.net/gym?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true })
     .then(db => console.log('DB connected'))//tira este mensaje si se conecto
     .catch(err => console.log(err))//tira esto si no conecto
 
