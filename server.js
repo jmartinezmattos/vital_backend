@@ -20,10 +20,10 @@ mongoose.connect("mongodb+srv://hoomerin:donas@cluster0-vfkxy.mongodb.net/gym?re
 app.use(express.json());
 
 //importing routes
-const clientRoute = require('./routes/cliente');
-const ejercicioRoute = require('./routes/ejercicio');
-const metricaRoute = require('./routes/metrica');
-const rutinaRoute = require('./routes/rutina');
+const clientRoute = require('./src/routes/cliente');
+const ejercicioRoute = require('./src/routes/ejercicio');
+const metricaRoute = require('./src/routes/metrica');
+const rutinaRoute = require('./src/routes/rutina');
 
 //routes
 app.use('/clientes', clientRoute);
