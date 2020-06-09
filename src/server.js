@@ -5,8 +5,8 @@ const app = express()
 
 const mongoose = require('mongoose')
 
-
-var server_port = 3000 //puerto del server
+app.set('port', process.env.PORT || 3000)
+//var server_port = 3000 //puerto del server
 
 //mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
 
@@ -18,7 +18,6 @@ mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true, useNewUrl
     .catch(err => console.log(err))//tira esto si no conecto
 
 app.use(express.json());
-
 
 //importing routes
 const clientRoute = require('./routes/cliente');
@@ -35,8 +34,7 @@ app.use('/metricas', metricaRoute);
 //app.use(express.urlencoded({extended:false}));//para entender los datos que se envian al server
 //app.use(express.bodyParser());
 
-
-app.listen(server_port, () => console.log(`Server started at port ${server_port}`))
+app.listen(app.get('port'), () => console.log(`Server started at port ${app.get('port')}`))
 
 
 
