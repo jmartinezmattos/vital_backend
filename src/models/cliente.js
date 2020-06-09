@@ -10,6 +10,7 @@ const ClienteSchema = new Schema({
         type:Number,
         unique : true,
         index: true,
+        required: true
     },
     usuario: { 
        type: String
