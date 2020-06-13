@@ -35,7 +35,7 @@ router.post('/', async (req, res)=> {
 
      var admin = false
 
-     if(req.body.admin === "bananas_locas"){ // METODO PARA CREAR ADMIN
+     if(req.body.admin === process.env.CREATE_ADMIN){ // METODO PARA CREAR ADMIN se pasa atributo y se verifica que sea igaul al valor de create admin
         admin = true;
      }
 
