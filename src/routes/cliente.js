@@ -13,7 +13,7 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', getClient,(req, res)=> {
+router.get('/:username', getClient,(req, res)=> {
     res.send(res.cliente)
 })
 
@@ -39,7 +39,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting all
-router.delete('/:id', getClient, async (req, res)=> {
+router.delete('/:username', getClient, async (req, res)=> {
     try{
         await res.cliente.remove()
         res.json({message: `Cliente con id: ${req.params.id} eliminado`})
@@ -54,7 +54,7 @@ async function getClient(req, res, next){ //faltaria que el get sea segun la ced
 
     try{
         //cliente = await Cliente.findOne({ "nombre": "joselito" }).exec(function (err, resad) {});
-        cliente = await Cliente.findOne({ cedula: req.params.id }) //ojo aca no me estoy fijando errores
+        cliente = await Cliente.findOne({ username: req.params.username }) //ojo aca no me estoy fijando errores
             //cliente = await Cliente.find({"cedula": req.params.id})//si uso esto cliente nunca es null entonces no entra en el error, por temas de eficiencia deberia usar findone pero no funca
         //cliente = await Cliente.findOne({"cedula": req.params.id})
         //cliente = await Cliente.findById(req.params.id)

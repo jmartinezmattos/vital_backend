@@ -6,22 +6,12 @@ const Schema = mongoose.Schema;
 
 const ClienteSchema = new Schema({
 
-    cedula:{
-        type:Number,
-        unique : true,
-        index: true,
-        required: true
-    },
     username: { 
        type: String,
+       unique : true,
+       index: true,
        required: true
     },
-    /* Esto se cambia por el hash
-    password: {
-        type: String,
-        required: true
-    },
-    */
     nombre: String,
     nacimiento: Date,
     nro_contacto: Number,
@@ -35,7 +25,11 @@ const ClienteSchema = new Schema({
         default: Date.now
     },
     hash: String,
-    salt: String
+    salt: String,
+    admin: {
+        type:Boolean,
+        default: false
+    }
 
 });
 
