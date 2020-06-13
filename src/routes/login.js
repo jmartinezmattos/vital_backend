@@ -35,7 +35,8 @@ const Cliente = require('../models/cliente');
  */
 
 router.get('/', (req, res, next) => {
-    res.send('<h1>Home</h1><p>Please <a href="/register">register</a></p>');
+    res.send('<h1>Home</h1><p>Please <a href="/register">register</a></p> or <a href="/login">login</a></p>');
+    
 });
 
 // When you visit http://localhost:3000/login, you will see "Login Page"
