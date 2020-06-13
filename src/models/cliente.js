@@ -12,11 +12,16 @@ const ClienteSchema = new Schema({
         index: true,
         required: true
     },
-    usuario: { 
-       type: String
-       //required: true
+    username: { 
+       type: String,
+       required: true
     },
-    password: String,
+    /* Esto se cambia por el hash
+    password: {
+        type: String,
+        required: true
+    },
+    */
     nombre: String,
     nacimiento: Date,
     nro_contacto: Number,
@@ -28,7 +33,9 @@ const ClienteSchema = new Schema({
     fecha_creacion: {
         type: Date,
         default: Date.now
-    }
+    },
+    hash: String,
+    salt: String
 
 });
 
