@@ -3,6 +3,7 @@ const router = express.Router()
 const Cliente = require('../models/cliente')
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
+const isAdmin = require('./authMiddleware').isAdmin;
 
 //Getting user info
 router.get('/myInfo', isAuth,async (req, res) => {
@@ -10,7 +11,7 @@ router.get('/myInfo', isAuth,async (req, res) => {
 })
 
 //Getting all
-router.get('/', async (req, res)=> {
+router.get('/', isAdmin, async (req, res)=> {
     try{
         const clientes = await Cliente.find()
         res.json(clientes)
@@ -20,7 +21,7 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:username', getClient,(req, res)=> {
+router.get('/:username', isAdmin, getClient,(req, res)=> {
     res.send(res.cliente)
 })
 
@@ -63,7 +64,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting all
-router.delete('/:username', getClient, async (req, res)=> {
+router.delete('/:username', isAdmin, getClient, async (req, res)=> {
     try{
         await res.cliente.remove()
         res.json({message: `Cliente con id: ${req.params.id} eliminado`})
