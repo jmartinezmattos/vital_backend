@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Cliente = require('../models/cliente')
+const generatePassword = require('../lib/passwordUtils').generatePassword;
 
 //Getting all
 router.get('/', async (req, res)=> {
@@ -20,7 +21,24 @@ router.get('/:username', getClient,(req, res)=> {
 //Creating one
 router.post('/', async (req, res)=> {
     
-    const cliente = new Cliente(req.body)
+    const saltHash = generatePassword(req.body.password);
+
+     const salt = saltHash.salt;
+     const hash = saltHash.hash;
+
+     var admin = false
+
+     if(req.body.admin === "bananas_locas"){ // METODO PARA CREAR ADMIN
+        admin = true;
+     }
+
+    const cliente = new Cliente({
+        username: req.body.username,
+        nombre: req.body.nombre,
+        admin: admin,
+        hash: hash,
+        salt: salt
+    })
 
     console.log(req.body.nombre)
     console.log(cliente)   

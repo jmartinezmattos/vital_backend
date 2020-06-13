@@ -5,6 +5,8 @@ module.exports.isAuth = (req, res, next) => {
     else{
         res.status(401).json({msg: 'No autorizado'})
     }
+
+    //req.username = req.user.username //podria hacer esto para despues devolver las cosas dentro de cada usuario
 }
 
 module.exports.isAdmin = (req, res, next) {

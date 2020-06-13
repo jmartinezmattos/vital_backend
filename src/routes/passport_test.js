@@ -13,29 +13,20 @@ const Cliente = require('../models/cliente');
 
  router.post('/register', (req, res, next) => {
     
-    console.log(req.body.username)
-    
     const saltHash = generatePassword(req.body.password);
 
      const salt = saltHash.salt;
      const hash = saltHash.hash;
 
-     console.log(req.body.username)
-
      const newUser = new Cliente({
          username: req.body.username,
          hash: hash,
-         salt: salt,
-         cedula: req.body.cedula
-
+         salt: salt
      })
 
      newUser.save().then((user)=>{console.log(user)})
 
      res.redirect('/login')
-
-
-     console.log('Paso asd ak')
  });
 
 
