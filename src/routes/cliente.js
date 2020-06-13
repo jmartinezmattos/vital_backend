@@ -54,10 +54,12 @@ async function getClient(req, res, next){ //faltaria que el get sea segun la ced
 
     try{
         //cliente = await Cliente.findOne({ "nombre": "joselito" }).exec(function (err, resad) {});
-        //cliente = await Cliente.findOne({ "cedula": req.params.id }).exec(function (err, resad) {});
-        cliente = await Cliente.find({"cedula": req.params.id})//si uso esto cliente nunca es null entonces no entra en el error, por temas de eficiencia deberia usar findone pero no funca
+        cliente = await Cliente.findOne({ cedula: req.params.id }) //ojo aca no me estoy fijando errores
+            //cliente = await Cliente.find({"cedula": req.params.id})//si uso esto cliente nunca es null entonces no entra en el error, por temas de eficiencia deberia usar findone pero no funca
+        //cliente = await Cliente.findOne({"cedula": req.params.id})
         //cliente = await Cliente.findById(req.params.id)
-        if(cliente == null || !cliente.length){
+        //console.log(cliente)
+        if(cliente == null){
             return res.status(404).json({message: `No se encuentra el cliente con id ${req.params.id}`})
         }
     }catch(err){
