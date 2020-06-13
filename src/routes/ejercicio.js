@@ -2,8 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Ejercicio = require('../models/ejercicio')
 
+const isAuth = require('./authMiddleware').isAuth;
+const isAdmin = require('./authMiddleware').isAdmin;
+
 //Getting all
-router.get('/', async (req, res)=> {
+router.get('/', isAdmin, async (req, res)=> {
     try{
         const ejercicios = await Ejercicio.find()
         res.json(ejercicios)
@@ -13,12 +16,12 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', getEjericio,(req, res)=> {
+router.get('/:id', isAdmin,getEjericio,(req, res)=> {
     res.send(res.ejercicio)
 })
 
 //Creating one
-router.post('/', async (req, res)=> {
+router.post('/', isAuth, async (req, res)=> {
     
     const ejercicio = new Ejercicio(req.body)
 
@@ -37,7 +40,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 
 
 //Deleting all
-router.delete('/:id', getEjericio, async (req, res)=> {
+router.delete('/:id', isAdmin , getEjericio, async (req, res)=> {
     try{
         await res.ejercicio.remove()
         res.json({message: `Ejercicio con id: ${req.params.id} eliminado`})

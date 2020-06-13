@@ -2,8 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Metrica = require('../models/metrica')
 
+const isAuth = require('./authMiddleware').isAuth;
+const isAdmin = require('./authMiddleware').isAdmin;
+
 //Getting all
-router.get('/', async (req, res)=> {
+router.get('/', isAdmin, async (req, res)=> {
     try{
         const metricas = await Metrica.find()
         res.json(metricas)
@@ -13,12 +16,12 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', getMetrica,(req, res)=> {
+router.get('/:id', isAdmin, getMetrica,(req, res)=> {
     res.send(res.metrica)
 })
 
 //Creating one
-router.post('/', async (req, res)=> {
+router.post('/', isAdmin, async (req, res)=> {
     
     const metrica = new Metrica(req.body)
 
@@ -39,7 +42,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting all
-router.delete('/:id', getMetrica, async (req, res)=> {
+router.delete('/:id', isAdmin, getMetrica, async (req, res)=> {
     try{
         await res.metrica.remove()
         res.json({message: `Metrica con id: ${req.params.id} eliminado`})

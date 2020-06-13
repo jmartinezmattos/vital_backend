@@ -2,9 +2,12 @@ const express = require('express')
 const router = express.Router()
 const Rutina = require('../models/rutina')
 
+const isAuth = require('./authMiddleware').isAuth;
+const isAdmin = require('./authMiddleware').isAdmin;
+
 
 //Getting all
-router.get('/', async (req, res)=> {
+router.get('/', isAdmin,async (req, res)=> {
     try{
         const rutinas = await Rutina.find()
         res.json(rutinas)
@@ -14,12 +17,12 @@ router.get('/', async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', getRutina,(req, res)=> {
+router.get('/:id', isAdmin, getRutina,(req, res)=> {
     res.send(res.rutina)
 })
 
 //Creating one
-router.post('/', async (req, res)=> {
+router.post('/', isAdmin, async (req, res)=> {
     
     const rutina = new Rutina(req.body)
 
@@ -40,7 +43,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting all
-router.delete('/:id', getRutina, async (req, res)=> {
+router.delete('/:id', isAdmin, getRutina, async (req, res)=> {
     try{
         await res.rutina.remove()
         res.json({message: `Rutina con id: ${req.params.id} eliminado`})

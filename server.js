@@ -58,14 +58,14 @@ const clientRoute = require('./src/routes/cliente');
 const ejercicioRoute = require('./src/routes/ejercicio');
 const metricaRoute = require('./src/routes/metrica');
 const rutinaRoute = require('./src/routes/rutina');
-const passport_test = require('./src/routes/passport_test');
+const login = require('./src/routes/login');
 
 //routes
 app.use('/clientes', clientRoute);
 app.use('/ejercicios', ejercicioRoute);
 app.use('/rutinas', rutinaRoute);
 app.use('/metricas', metricaRoute);
-app.use('/', passport_test);
+app.use('/', login);
 
 
 
