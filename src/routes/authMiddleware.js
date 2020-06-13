@@ -9,7 +9,7 @@ module.exports.isAuth = (req, res, next) => {
     //req.username = req.user.username //podria hacer esto para despues devolver las cosas dentro de cada usuario
 }
 
-module.exports.isAdmin = (req, res, next) {
+module.exports.isAdmin = (req, res, next) => {
     if(req.isAuthenticated() && req.user.admin){
         next();
     }
