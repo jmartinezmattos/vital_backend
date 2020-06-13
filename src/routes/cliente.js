@@ -2,6 +2,12 @@ const express = require('express')
 const router = express.Router()
 const Cliente = require('../models/cliente')
 const generatePassword = require('../lib/passwordUtils').generatePassword;
+const isAuth = require('./authMiddleware').isAuth;
+
+//Getting user info
+router.get('/myInfo', isAuth,async (req, res) => {
+    res.send(req.user)
+})
 
 //Getting all
 router.get('/', async (req, res)=> {
