@@ -5,7 +5,10 @@ const app = express()
 
 const mongoose = require('mongoose');
 const passport = require('passport');
+const session = require('express-session')
 const bodyparser = require("body-parser");
+
+const MongoStore = require('connect-mongo')(session);
 
 app.set('port', process.env.PORT || 3000);
 
@@ -22,10 +25,32 @@ app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
 
 //Passport
+
+const sessionStore = new MongoStore({
+    mongooseConnection: mongoose.connection,
+    collection: 'sessions'
+})
+
+app.use(session({
+    secret: "secreto", //despues cambiarlo por variable de ambiente
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+        maxage: 1000*60*60*24 //esto es un dia
+    }
+}))
+
 require('./src/config/passport');
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next();
+})
 
 
 //importing routes

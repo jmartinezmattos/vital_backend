@@ -49,3 +49,11 @@ passport.serializeUser((user, done)=>{
     console.log("Serialize user")
     done(null, user.id)//OJO VER LO DEL ID y si user no es cliente
 })
+
+passport.deserializeUser((userId, done) => {
+    Cliente.findById(userId)
+    .then((user) => {
+        done(null, user);
+    })
+    .catch(err => done(err))
+})
