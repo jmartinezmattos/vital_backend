@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Rutina = require('../models/rutina')
+const TiposEjercicio = require('../models/tiposEjercicio')
 
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
@@ -9,7 +9,7 @@ const isAdmin = require('./authMiddleware').isAdmin;
 //Getting all
 router.get('/', isAdmin,async (req, res)=> {
     try{
-        const rutinas = await Rutina.find()
+        const rutinas = await TiposEjercicio.find()
         res.json(rutinas)
     }catch{
         res.status(500).json({message: err.message})
@@ -17,21 +17,20 @@ router.get('/', isAdmin,async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', isAdmin, getRutina,(req, res)=> {
-    res.send(res.rutina)
+router.get('/:id', isAdmin, getTipoEjercicio,(req, res)=> {
+    res.send(res.tipo)
 })
 
 //Creating one
 router.post('/', isAdmin, async (req, res)=> {
     
-    const rutina = new Rutina(req.body)
+    const tipo = new TiposEjercicio(req.body)
 
-    console.log(req.body.nombre)
-    console.log(rutina)   
+    console.log(tipo)   
 
     try{
-        const newClient = await rutina.save()
-        res.status(201).json(newClient)
+        const newTipo= await tipo.save()
+        res.status(201).json(newTipo)
     }catch{
         res.status(400).json({message: err.message})
     }
@@ -43,30 +42,33 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting one
-router.delete('/:id', isAdmin, getRutina, async (req, res)=> {
+router.delete('/:id', isAdmin, getTipoEjercicio, async (req, res)=> {
     try{
-        await res.rutina.remove()
-        res.json({message: `Rutina con id: ${req.params.id} eliminado`})
+        await res.tipo.remove()
+        res.json({message: `Tipo con id: ${req.params.id} eliminado`})
     }catch (err){
         res.status(500).json({message: err.message})
     }
 })
 
 
-async function getRutina(req, res, next){
-    let rutina
+
+async function getTipoEjercicio(req, res, next){
+    let tipo
 
     try{
-        rutina = await Rutina.findById(req.params.id)
+        tipo = await TiposEjercicio.findById(req.params.id)
         if(rutina == null){
-            return res.status(404).json({message: `No se encuentra la rutina con id ${req.params.id}`})
+            return res.status(404).json({message: `No se encuentra el tipo de ejercicio con id ${req.params.id}`})
         }
     }catch(err){
         return res.status(500).json({message: err.message})
     }
-    res.rutina=rutina //IMPORTANTE ESTO SE USA DESPUES
+    res.tipo=tipo //IMPORTANTE ESTO SE USA DESPUES
     next()
 }
+
+
 
 
 module.exports = router
