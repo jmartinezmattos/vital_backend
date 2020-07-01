@@ -16,7 +16,7 @@ router.get('/', isAdmin, async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', isAdmin,getEjericio,(req, res)=> {
+router.get('/:id', isAdmin, getEjericio,(req, res)=> {
     res.send(res.ejercicio)
 })
 

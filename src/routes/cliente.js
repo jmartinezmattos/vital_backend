@@ -6,7 +6,7 @@ const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
 
 //Getting user info
-router.get('/myInfo', isAuth,async (req, res) => {
+router.get('/myInfo', isAuth, async (req, res) => {
     res.send(req.user)
 })
 
@@ -22,6 +22,16 @@ router.get('/', isAdmin, async (req, res)=> {
 
 //Getting one
 router.get('/:username', isAdmin, getClient,(req, res)=> {
+    res.send(res.cliente)
+})
+
+//Getting atribute from a client
+router.get('/:username/:atributo', isAdmin, getClient,(req, res)=> {
+    
+    let aux = req.params.atributo.toString()
+
+    res.send(res.cliente.nombre)
+    
     res.send(res.cliente)
 })
 
