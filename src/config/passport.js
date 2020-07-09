@@ -27,7 +27,7 @@ const verifyCallback = (username, password, done) => { //hay que nombrarlos user
             //aca nos fijamos si la password esta bien
             const isValid = validPassword(password, user.hash, user.salt)
 
-            if(1){
+            if(isValid){
                 console.log("la pass esta bien")
                 return done(null, user) //nos deja entrar en la ruta
             }else{
