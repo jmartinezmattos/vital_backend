@@ -89,6 +89,7 @@ router.get('/login-success', (req, res, next) => {
     res.send("{ login: true}");
 });
 
+//login failure
 router.get('/login-failure', (req, res, next) => {
     res.send("{ login: false}");
 });
