@@ -86,11 +86,11 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/login-success', (req, res, next) => {
-    res.send(true);
+    res.send("{ login: true}");
 });
 
 router.get('/login-failure', (req, res, next) => {
-    res.send(false);
+    res.send("{ login: false}");
 });
 
 module.exports = router;
