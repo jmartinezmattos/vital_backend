@@ -25,16 +25,6 @@ router.get('/:username', isAdmin, getClient,(req, res)=> {
     res.send(res.cliente)
 })
 
-//Getting atribute from a client
-router.get('/:username/:atributo', isAdmin, getClient,(req, res)=> {
-    
-    let aux = req.params.atributo.toString()
-
-    res.send(res.cliente.nombre)
-    
-    res.send(res.cliente)
-})
-
 //Creating one
 router.post('/', async (req, res)=> {
     
