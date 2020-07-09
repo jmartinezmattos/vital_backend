@@ -91,7 +91,7 @@ router.get('/login-success', (req, res, next) => {
 
 //login failure
 router.get('/login-failure', (req, res, next) => {
-    res.send("{ login: false}");
+    res.send({login: false});
 });
 
 module.exports = router;
