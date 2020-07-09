@@ -86,11 +86,11 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/login-success', (req, res, next) => {
-    res.send('<p>You successfully logged in. --> <a href="/protected-route">Go to protected route</a></p>');
+    res.send(true);
 });
 
 router.get('/login-failure', (req, res, next) => {
-    res.send('You entered the wrong password.');
+    res.send(false);
 });
 
 module.exports = router;
