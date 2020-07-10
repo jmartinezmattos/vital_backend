@@ -12,8 +12,8 @@ const MongoStore = require('connect-mongo')(session);
 
 app.set('port', process.env.PORT || 3000);
 
-//var cors = require('cors')
-//app.use(cors())
+var cors = require('cors')
+app.use(cors())
 
 //conectar a bdd
 mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
