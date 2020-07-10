@@ -6,14 +6,12 @@ const Schema = mongoose.Schema;
 
 const EjercicioSchema = new Schema({
 
-    tipos: Array,
     nombre: String,
-    velocidad_ejecucion: String,
-    series: Number,//aca no sera mejor crear un objeto serie que tenga adentro las rep por cada serie
-    reps_por_serie: Number,
+    series: Number,
+    repeticiones: Number,
     intensidad: String,
-    kilos: String,
-    fecha_realizado: Date
+    tiempo: String,
+    sesiones: [mongoose.Schema.Types.ObjectId]
 
 })
 

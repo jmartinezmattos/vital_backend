@@ -16,20 +16,13 @@ const ClienteSchema = new Schema({
     nacimiento: Date,
     nro_contacto: Number,
     mail: String,
-    ejercicios: Array,
-    metricas_iniciales: Array,
-    metricas_avance: Array,
-    metricas_objetivo: Array,
-    fecha_creacion: {
-        type: Date,
-        default: Date.now
-    },
     hash: String,
     salt: String,
     admin: {
         type:Boolean,
         default: false
-    }
+    },
+    planes: [mongoose.Schema.Types.ObjectId]
 
 });
 
