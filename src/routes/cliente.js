@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Cliente = require('../models/cliente')
+const Plan = require('../models/plan');
+const cliente = require('../models/cliente');
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
@@ -23,6 +25,23 @@ router.get('/', isAdmin, async (req, res)=> {
 //Getting one
 router.get('/:username', isAdmin, getClient,(req, res)=> {
     res.send(res.cliente)
+})
+
+//Obtener los planes
+router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
+    Plan.find({'_id': { $in: res.cliente.planes}}, function(err,docs) {
+       res.send(docs)
+    });
+})
+
+//Agregar un plan a un cliente
+router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
+    const newPlan = new Plan(req.body)
+    newPlan.save()
+    id = newPlan.id
+    res.cliente.planes.push(id);
+    res.cliente.save();
+    res.send(newPlan)
 })
 
 //Creating one
