@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const app = express()
+var cors = require('cors')
 
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -12,8 +13,21 @@ const MongoStore = require('connect-mongo')(session);
 
 app.set('port', process.env.PORT || 3000);
 
-var cors = require('cors')
-app.use(cors())
+
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials : true
+   }
+  
+  app.use(cors(corsOptions));
+  
+  app.use(function (req, res, next) {	
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');    
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');    
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');   
+      res.setHeader('Access-Control-Allow-Credentials', true);    
+      next();
+  });
 
 //conectar a bdd
 mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
