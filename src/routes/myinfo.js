@@ -11,7 +11,11 @@ const isAuth = require('./authMiddleware').isAuth;
 
 //Getting user info
 router.get('/', isAuth, async (req, res) => {
-    res.send(req.user)
+    //Chequear seguridad, se esta enviando el salt y el hash al usuario
+    datos = req.user
+    datos.hash = null
+    datos.salt = null
+    res.send(datos)
 })
 
 
