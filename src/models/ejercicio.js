@@ -11,7 +11,7 @@ const EjercicioSchema = new Schema({
     repeticiones: Number,
     intensidad: String,
     tiempo: String,
-    sesiones: [mongoose.Schema.Types.ObjectId]
+    sesiones: []
 
 })
 

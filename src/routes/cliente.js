@@ -97,7 +97,7 @@ router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
 })
 
 //Agregar un ejercicio a un dia
-router.post('/:username/planes/:idplan/dias/:iddia', isAdmin, getClient,(req, res)=> {
+router.post('/:username/planes/:idplan/dias/:iddia/ejercicios', isAdmin, getClient,(req, res)=> {
     
     const newEjercicio = new Ejercicio(req.body)
     newEjercicio.save()
@@ -113,7 +113,7 @@ router.post('/:username/planes/:idplan/dias/:iddia', isAdmin, getClient,(req, re
 })
 
 //Agregar una sesion a un ejercicio
-router.post('/:username/planes/:idplan/dias/:iddia/ejercicios/:idejercicio', isAdmin, getClient,(req, res)=> {
+router.post('/:username/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones', isAdmin, getClient,(req, res)=> {
     
     const newSesion = new Session(req.body)
 

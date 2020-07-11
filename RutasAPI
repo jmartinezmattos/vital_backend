@@ -45,10 +45,10 @@ POST
 /cliente/:username/planes/:idplan/dias (A)
     Agregar un dia a un plan de un cliente
 
-/cliente/:username/planes/:idplan/dias/:iddia (A)
+/cliente/:username/planes/:idplan/dias/:iddia/ejercicios (A)
     Agregar un ejercicio a un dia de un plan de un cliente
 
-/cliente/:username/planes/:idplan/dias/:iddia/ejercicios/:idejercicio (A)
+/cliente/:username/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones (A)
     Agregar una sesion a un ejercicio a un dia de un plan de un cliente
 
 PUT
