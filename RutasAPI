@@ -85,8 +85,11 @@ POST
 /myinfo/planes/:idplan/dias (U)
     Agregar un dia a un plan
 
-@Todo
-    Agregar un 
+/myinfo/planes/:idplan/dias/:iddia/ejercicios (U)
+    Agregar un ejercicio a un dia de un plan
+
+/myinfo/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones (U)
+    Agregar una sesion a un ejercicio
 
 PUT
 /myinfo (U)

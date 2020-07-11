@@ -90,14 +90,17 @@ router.post('/planes/:idplan/dias', isAuth, async (req, res)=> {
 })
 
 //Agregar un ejercicio a un dia
-router.post('/planes/:idplan/dias/:iddia', isAuth, async (req, res)=> {
+router.post('/planes/:idplan/dias/:iddia/ejercicios', isAuth, async (req, res)=> {
 
     if(req.user.planes.includes(req.params.idplan)){
         
         const newEjercicio = new Ejercicio(req.body)
         try{
             plan = await Plan.findById(req.params.idplan)
-            //Buscar en el array de dias el dia indicado
+            (plan.dias.filter(item => {return item._id == req.params.iddia;})[0]).ejercicios.push(newEjercicio)//Encuentro el dia y le meto el ejercicio nuevo
+            plan.markModified('dias')
+            plan.markModified('ejercicios')
+            plan.save()
         }
         catch{
             res.send("Error")
@@ -108,6 +111,33 @@ router.post('/planes/:idplan/dias/:iddia', isAuth, async (req, res)=> {
         res.send("El usuario no contiene ese plan")
     }
 })
+
+
+//Agregar una sesion a un ejercicio
+router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones', isAuth, async (req, res)=> {
+
+    if(req.user.planes.includes(req.params.idplan)){
+        
+        const newSesion = new Session(req.body)
+        try{
+            plan = await Plan.findById(req.params.idplan)
+            plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones.push(newSesion)
+            plan.markModified('dias')
+            plan.markModified('ejercicios')
+            plan.markModified('sesiones')
+            plan.save()
+        }
+        catch{
+            res.send("Error")
+        }
+        
+    }
+    else{
+        res.send("El usuario no contiene ese plan")
+    }
+})
+
+
 
 
 //Modificar un plan
