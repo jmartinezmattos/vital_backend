@@ -12,7 +12,11 @@ const ClienteSchema = new Schema({
        index: true,
        required: true
     },
-    nombre: String,
+    nombre: {
+        type: String,
+        required: true,
+        default: "Sin nombre"
+    },
     nacimiento: Date,
     nro_contacto: Number,
     mail: String,
