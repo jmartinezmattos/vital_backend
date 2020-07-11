@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 const SesionSchema = new Schema({
 
     nombre: String,
-    dias: [mongoose.Schema.Types.ObjectId]
+    series: Number,
+    intensidad: String,
+    tiempo: String
 
 })
 

@@ -4,7 +4,8 @@ const Cliente = require('../models/cliente')
 const Plan = require('../models/plan');
 const Dia = require('../models/day');
 const Session = require('../models/sesion')
-const Ejercicio = require('../models/ejercicio')
+const Ejercicio = require('../models/ejercicio');
+const cliente = require('../models/cliente');
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
@@ -27,6 +28,24 @@ router.get('/', isAdmin, async (req, res)=> {
 //Getting one
 router.get('/:username', isAdmin, getClient,(req, res)=> {
     res.send(res.cliente)
+})
+
+//Modificar un usuario DESDE ACA SE PUEDE MODIFICAR EL ADMIN CUIDADO
+router.put('/:username', isAdmin, getClient,(req, res)=> {
+    var conditions = { username: req.params.username};
+
+    admin = req.body.admin
+
+    if(admin === true || admin == true || admin == "true"){
+        console.log("Hacker loco")
+        res.send("Aja vos me queres hackear loquillo")
+    }else{
+        Cliente.update(conditions, req.body)
+        .then(doc => {
+            if(!doc){return res.status(404).end();}
+            return res.status(200).json(doc)
+        })
+    }
 })
 
 //Obtener los planes
@@ -110,17 +129,23 @@ router.post('/:username/planes/:idplan/dias/:iddia', isAdmin, getClient,(req, re
         docs.save()
     });
 
-    /*
-    Dia.findById(req.params.iddia, function(err,docs) {
-        if(docs == null){
-            res.send(`No se encontro el dia con id ${req.params.iddia}`)
-        }
-        docs.ejercicios.push(newEjercicio)
+    res.send(newEjercicio)
+})
+
+//Agregar una sesion a un ejercicio
+router.post('/:username/planes/:idplan/dias/:iddia/ejercicios/:idejercicio', isAdmin, getClient,(req, res)=> {
+    
+    const newSesion = new Session(req.body)
+
+    Plan.findById(req.params.idplan, function(err,docs) {
+        docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio;})[0].sesiones.push(newSesion)
+        docs.markModified('dias')
+        docs.markModified('ejercicios')
+        docs.markModified('sesiones')
         docs.save()
     });
-    */
 
-    res.send(newEjercicio)
+    res.send(newSesion)
 })
 
 
