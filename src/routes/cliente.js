@@ -10,10 +10,12 @@ const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
 
+/*
 //Getting user info
 router.get('/myInfo', isAuth, async (req, res) => {
     res.send(req.user)
 })
+*/
 
 //Getting all
 router.get('/', isAdmin, async (req, res)=> {

@@ -54,3 +54,22 @@ Delete
 
 /cliente/:username
     Eliminar un usuario
+
+
+------------myinfo
+GET
+
+/myinfo
+    Informacion del usuario (los planes no cargan, solo sus ids)  (U)
+
+/myinfo/planes
+    Los planes del usuario (U)
+
+POST
+
+/myinfo
+    Modifica informacion de un usuario
+
+PUT
+
+Delete

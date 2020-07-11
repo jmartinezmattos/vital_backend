@@ -77,6 +77,7 @@ const metricaRoute = require('./src/routes/metrica');
 const rutinaRoute = require('./src/routes/rutina');
 const login = require('./src/routes/login');
 const tiposEjercicio = require('./src/routes/tiposEjercicio');
+const myinfo = require('./src/routes/myinfo')
 
 //routes
 app.use('/clientes', clientRoute);
@@ -84,6 +85,7 @@ app.use('/ejercicios', ejercicioRoute);
 app.use('/rutinas', rutinaRoute);
 app.use('/metricas', metricaRoute);
 app.use('/tiposEjercicio', tiposEjercicio);
+app.use('/myinfo', myinfo)
 app.use('/', login);
 
 
