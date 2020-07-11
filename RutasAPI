@@ -5,6 +5,15 @@
 
 usuario es lo mismo que cliente
 
+
+--------------------Login:
+
+/login
+    loguear usuario
+
+/logout
+    desloguear usuario
+
 --------------------Usuarios:
 
 GET
@@ -14,9 +23,6 @@ GET
 
 /cliente/:username (A)
     Un usuario
-
-/cliente/myinfo
-    Informacion del cliente actual (U)
 
 /cliente/:username/planes (A)
     Planes del cliente
@@ -56,7 +62,8 @@ Delete
     Eliminar un usuario
 
 
-------------myinfo
+---------------myinfo:
+
 GET
 
 /myinfo
@@ -65,11 +72,20 @@ GET
 /myinfo/planes
     Los planes del usuario (U)
 
-POST
+/myinfo/planes/:idplan (U)
+    Obtiene un plan del usuario
 
-/myinfo
-    Modifica informacion de un usuario
+POST
+/myinfo/planes (U)
+    Agrega un plan al usuario
 
 PUT
+/myinfo (U)
+    Modifica informacion del usuario
+
+/myinfo/planes/:idplan (U)
+    Modifica un plan del usuario
 
 Delete
+/myinfo/planes/:idplan (U)
+    Elimina un plan del usuario

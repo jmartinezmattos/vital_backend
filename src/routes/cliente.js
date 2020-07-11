@@ -175,7 +175,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
    
 })
 
-//Deleting all
+//Deleting 
 router.delete('/:username', isAdmin, getClient, async (req, res)=> {
     try{
         await res.cliente.remove()

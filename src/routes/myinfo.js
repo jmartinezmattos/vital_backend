@@ -21,8 +21,21 @@ router.get('/planes', isAuth, async (req, res) => {
     });
 })
 
+//Obtener un plan del usuario
+router.get('/planes/:idplan', isAuth, async (req, res) => {
+    Plan.find({'_id': req.params.idplan}, function(err,docs) {
+        
+        if(docs){
+            res.send(docs)
+        }else{
+            res.send("No se encontro el plan")
+        } 
+    });
+})
+
+
 //Modificar cosas del usuario
-router.post('/', isAuth, async (req, res) => {
+router.put('/', isAuth, async (req, res) => {
     
     var conditions = { _id: user._id};
 
@@ -40,6 +53,48 @@ router.post('/', isAuth, async (req, res) => {
     }
 
 
+})
+
+
+//Agregar un plan
+router.post('/planes', isAuth, async (req, res)=> {
+    const newPlan = new Plan(req.body)
+    newPlan.save()
+    id = newPlan.id
+    user.planes.push(id);
+    user.save();
+    res.send(newPlan)
+})
+
+//Modificar un plan
+router.put('/planes/:idplan', isAuth, async (req, res)=> {
+    
+    var conditions = { _id: req.params.idplan};
+
+    admin = req.body.admin
+    
+    Cliente.update(conditions, req.body)
+    .then(doc => {
+        if(!doc){return res.status(404).end();}
+        return res.status(200).json(doc)
+    })
+    
+})
+
+//Deleting 
+router.delete('/planes/:idplan', isAuth, async (req, res)=> {
+
+    if(req.user.planes.includes(req.params.idplan)){
+        try{
+            await Plan.findByIdAndRemove(req.params.idplan)
+            res.json({message: `Plan con id: ${req.params.idplan} eliminado`})
+        }catch (err){
+            res.status(500).json({message: err.message})
+        }
+    }
+    else{
+        res.send(`Su usuario no contiene el plan con id: ${req.params.idplan}`)
+    }
 })
 
 
