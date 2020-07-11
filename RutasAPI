@@ -79,6 +79,9 @@ POST
 /myinfo/planes (U)
     Agrega un plan al usuario
 
+/myinfo/changepassword (U)
+    Cambiar password
+
 PUT
 /myinfo (U)
     Modifica informacion del usuario

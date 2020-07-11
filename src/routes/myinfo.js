@@ -23,14 +23,14 @@ router.get('/planes', isAuth, async (req, res) => {
 
 //Obtener un plan del usuario
 router.get('/planes/:idplan', isAuth, async (req, res) => {
-    Plan.find({'_id': req.params.idplan}, function(err,docs) {
-        
+    
+    Plan.findById(req.params.idplan, function (err, docs) {
         if(docs){
             res.send(docs)
         }else{
             res.send("No se encontro el plan")
         } 
-    });
+     });
 })
 
 
@@ -81,7 +81,7 @@ router.put('/planes/:idplan', isAuth, async (req, res)=> {
     
 })
 
-//Deleting 
+//Deleting a plan
 router.delete('/planes/:idplan', isAuth, async (req, res)=> {
 
     if(req.user.planes.includes(req.params.idplan)){
@@ -97,5 +97,18 @@ router.delete('/planes/:idplan', isAuth, async (req, res)=> {
     }
 })
 
+//Cambiar pasword
+router.post('/changepassword', isAuth, async (req, res)=> {
+    
+    const saltHash = generatePassword(req.body.password);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    req.user.salt = salt;
+    req.user.hash = hash;
+
+    req.user.save()
+    res.send("Contra cambiada")
+})
 
 module.exports = router
