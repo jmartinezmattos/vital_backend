@@ -104,11 +104,7 @@ router.post('/:username/planes/:idplan/dias/:iddia', isAdmin, getClient,(req, re
     newEjercicio.save()
 
     Plan.findById(req.params.idplan, function(err,docs) {
-        //dias = docs.dias//aca tengo un array con todos los dias
-        //console.log(dias)
-        console.log(docs.dias.filter(item => {return item._id == req.params.iddia;})[0])
-        console.log(docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.push(newEjercicio))
-        console.log(docs.dias)
+        docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.push(newEjercicio)
         docs.markModified('dias')
         docs.markModified('ejercicios')
         docs.save()
