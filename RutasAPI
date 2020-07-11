@@ -82,6 +82,12 @@ POST
 /myinfo/changepassword (U)
     Cambiar password
 
+/myinfo/planes/:idplan/dias (U)
+    Agregar un dia a un plan
+
+@Todo
+    Agregar un 
+
 PUT
 /myinfo (U)
     Modifica informacion del usuario

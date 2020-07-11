@@ -5,6 +5,7 @@ const Plan = require('../models/plan');
 const Dia = require('../models/day');
 const Session = require('../models/sesion')
 const Ejercicio = require('../models/ejercicio');
+const plan = require('../models/plan');
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
 
@@ -61,10 +62,53 @@ router.post('/planes', isAuth, async (req, res)=> {
     const newPlan = new Plan(req.body)
     newPlan.save()
     id = newPlan.id
-    user.planes.push(id);
-    user.save();
+    req.user.planes.push(id);
+    req.user.save();
     res.send(newPlan)
 })
+
+//Agregar un dia a un plan
+router.post('/planes/:idplan/dias', isAuth, async (req, res)=> {
+
+    if(req.user.planes.includes(req.params.idplan)){
+        const newDay = new Dia(req.body)
+        try{
+            plan = await Plan.findById(req.params.idplan)
+            plan.dias.push(newDay)
+            plan.markModified('dias')
+            newDay.save()
+            plan.save()
+
+        }catch{
+            res.send(`Error`)
+        }
+    }
+    else{
+        res.send("El usuario no contiene ese plan")
+    }
+
+})
+
+//Agregar un ejercicio a un dia
+router.post('/planes/:idplan/dias/:iddia', isAuth, async (req, res)=> {
+
+    if(req.user.planes.includes(req.params.idplan)){
+        
+        const newEjercicio = new Ejercicio(req.body)
+        try{
+            plan = await Plan.findById(req.params.idplan)
+            //Buscar en el array de dias el dia indicado
+        }
+        catch{
+            res.send("Error")
+        }
+        
+    }
+    else{
+        res.send("El usuario no contiene ese plan")
+    }
+})
+
 
 //Modificar un plan
 router.put('/planes/:idplan', isAuth, async (req, res)=> {
