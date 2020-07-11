@@ -75,7 +75,7 @@ router.get('/:username/planes/:idplan', isAdmin, getClient,(req, res)=> {
 
 })
 
-//Obtener un plan de un cliente
+//Obtener un dis de un plan de un cliente
 router.get('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
     
     Plan.findById(req.params.idplan, function(err,docs) {
@@ -85,22 +85,6 @@ router.get('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
     });
     
 })
-
-/*Version vieja cuando poniamos el id
-//Agregar un dia a un plan
-router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
-    
-    const newDay = new Dia(req.body)
-    newDay.save()
-
-    Plan.findById(req.params.idplan, function(err,docs) {
-        docs.dias.push(newDay)
-        docs.save()
-    });
-
-    res.send(newDay)
-})
-*/
 
 //Agregar un dia a un plan
 router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
@@ -179,7 +163,8 @@ router.post('/', async (req, res)=> {
         const newClient = await cliente.save()
         res.status(201).json(newClient)
     }catch{
-        res.status(400).json({message: err.message})
+        res.status(400)
+        res.send("Error al guardar")
     }
 })
 

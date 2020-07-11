@@ -1,0 +1,56 @@
+
+(A) = solo para admins
+
+(U) = Para usuarios en general
+
+usuario es lo mismo que cliente
+
+--------------------Usuarios:
+
+GET
+
+/cliente (A)
+    Todos los usuarios
+
+/cliente/:username (A)
+    Un usuario
+
+/cliente/myinfo
+    Informacion del cliente actual (U)
+
+/cliente/:username/planes (A)
+    Planes del cliente
+
+/cliente/:username/planes/:idplan (A)
+    Un plan de un cliente
+
+/cliente/:username/planes/:idplan/dias (A)
+    Dias de un plan de un cliente
+
+
+POST
+
+/cliente
+    Crrear un cliente
+
+/cliente/:username/planes (A)
+    Agregar un plan a un cliente
+
+/cliente/:username/planes/:idplan/dias (A)
+    Agregar un dia a un plan de un cliente
+
+/cliente/:username/planes/:idplan/dias/:iddia (A)
+    Agregar un ejercicio a un dia de un plan de un cliente
+
+/cliente/:username/planes/:idplan/dias/:iddia/ejercicios/:idejercicio (A)
+    Agregar una sesion a un ejercicio a un dia de un plan de un cliente
+
+PUT
+
+/cliente/:username
+    Modifica un usuario
+
+Delete
+
+/cliente/:username
+    Eliminar un usuario
