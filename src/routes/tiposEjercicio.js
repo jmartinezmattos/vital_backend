@@ -7,7 +7,7 @@ const isAdmin = require('./authMiddleware').isAdmin;
 
 
 //Getting all
-router.get('/', isAdmin,async (req, res)=> {
+router.get('/', isAuth,async (req, res)=> {
     try{
         const rutinas = await TiposEjercicio.find()
         res.json(rutinas)
@@ -17,7 +17,7 @@ router.get('/', isAdmin,async (req, res)=> {
 })
 
 //Getting one
-router.get('/:id', isAdmin, getTipoEjercicio,(req, res)=> {
+router.get('/:id', isAuth, getTipoEjercicio,(req, res)=> {
     res.send(res.tipo)
 })
 

@@ -89,3 +89,25 @@ PUT
 Delete
 /myinfo/planes/:idplan (U)
     Elimina un plan del usuario
+
+
+--------------tipos de ejercicios
+
+GET
+
+/tiposEjercicio (U)
+    Obtener todos los tipos de ejercicio
+
+/tiposEjercicio/:id (U)
+    Obtener un tipo de ejercicio segun id
+
+POST
+
+/tiposEjercicio (A)
+    Crea un tipo de ejercicio
+
+PUT
+
+Delete
+/tiposEjercicio/:id (A)
+    Elimina un tipo de ejercicio
