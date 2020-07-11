@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Cliente = require('../models/cliente')
 const Plan = require('../models/plan');
-const Dia = require('../models/day')
+const Dia = require('../models/day');
+const Session = require('../models/sesion')
+const Ejercicio = require('../models/ejercicio')
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
@@ -30,8 +32,9 @@ router.get('/:username', isAdmin, getClient,(req, res)=> {
 //Obtener los planes
 router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
     Plan.find({'_id': { $in: res.cliente.planes}}, function(err,docs) {
-       res.send(docs)
+        res.send(docs)    
     });
+    
 })
 
 //Agregar un plan a un cliente
@@ -64,6 +67,7 @@ router.get('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
     
 })
 
+/*Version vieja cuando poniamos el id
 //Agregar un dia a un plan
 router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
     
@@ -76,6 +80,51 @@ router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
     });
 
     res.send(newDay)
+})
+*/
+
+//Agregar un dia a un plan
+router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
+    
+    const newDay = new Dia(req.body)
+    newDay.save()
+
+    Plan.findById(req.params.idplan, function(err,docs) {
+        docs.dias.push(newDay)
+        docs.save()
+    });
+
+    res.send(newDay)
+})
+
+//Agregar un ejercicio a un dia
+router.post('/:username/planes/:idplan/dias/:iddia', isAdmin, getClient,(req, res)=> {
+    
+    const newEjercicio = new Ejercicio(req.body)
+    newEjercicio.save()
+
+    Plan.findById(req.params.idplan, function(err,docs) {
+        //dias = docs.dias//aca tengo un array con todos los dias
+        //console.log(dias)
+        console.log(docs.dias.filter(item => {return item._id == req.params.iddia;})[0])
+        console.log(docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.push(newEjercicio))
+        console.log(docs.dias)
+        docs.markModified('dias')
+        docs.markModified('ejercicios')
+        docs.save()
+    });
+
+    /*
+    Dia.findById(req.params.iddia, function(err,docs) {
+        if(docs == null){
+            res.send(`No se encontro el dia con id ${req.params.iddia}`)
+        }
+        docs.ejercicios.push(newEjercicio)
+        docs.save()
+    });
+    */
+
+    res.send(newEjercicio)
 })
 
 

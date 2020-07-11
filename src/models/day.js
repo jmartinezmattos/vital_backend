@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const DiaSchema = new Schema({
 
     nombre: String,
-    ejercicios: [mongoose.Schema.Types.ObjectId]
+    ejercicios: []
 
 })
 
