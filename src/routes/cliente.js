@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Cliente = require('../models/cliente')
 const Plan = require('../models/plan');
-const cliente = require('../models/cliente');
+const Dia = require('../models/day')
 const generatePassword = require('../lib/passwordUtils').generatePassword;
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
@@ -43,6 +43,42 @@ router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
     res.cliente.save();
     res.send(newPlan)
 })
+
+//Obtener un plan de un cliente
+router.get('/:username/planes/:idplan', isAdmin, getClient,(req, res)=> {
+    
+    Plan.findById(req.params.idplan, function(err,docs) {
+        res.send(docs)
+    });
+
+})
+
+//Obtener un plan de un cliente
+router.get('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
+    
+    Plan.findById(req.params.idplan, function(err,docs) {
+        Dia.find({'_id': { $in: docs.dias}}, function(err,docs2) {
+            res.send(docs2)
+         });
+    });
+    
+})
+
+//Agregar un dia a un plan
+router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
+    
+    const newDay = new Dia(req.body)
+    newDay.save()
+
+    Plan.findById(req.params.idplan, function(err,docs) {
+        docs.dias.push(newDay)
+        docs.save()
+    });
+
+    res.send(newDay)
+})
+
+
 
 //Creating one
 router.post('/', async (req, res)=> {
