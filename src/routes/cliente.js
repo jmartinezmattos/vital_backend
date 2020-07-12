@@ -76,7 +76,9 @@ router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
 router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
     
     const newPlan = new Plan(req.body)
-    newPlan.dias.push(req.body.dias)
+    for( dia in req.body.dias){
+        newPlan.dias.push(dia)
+    }
     newPlan.markModified("dias")
     newPlan.save()
     id = newPlan.id
