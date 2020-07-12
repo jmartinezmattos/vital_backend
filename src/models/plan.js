@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const PlanSchema = new Schema({
     nombre: String,
-    dias: Array
+    dias: []
 })
 
 module.exports = mongoose.model('planes',PlanSchema)
