@@ -131,6 +131,7 @@ router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
 
     Plan.findById(req.params.idplan, function(err,docs) {
         docs.dias.push(newDay)
+        docs.markModified('dias')
         docs.save()
     });
 

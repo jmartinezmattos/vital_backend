@@ -188,7 +188,7 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
             
             sesiones = plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
             indice = sesiones.indexOf(req.params.idsesion)
-            sesiones.splice(indice)
+            sesiones.splice(indice, 1)
             
             plan.markModified('dias')
             plan.markModified('ejercicios')
