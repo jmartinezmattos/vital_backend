@@ -76,7 +76,8 @@ router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
 router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
     
     const newPlan = new Plan(req.body)
-    for( dia in req.body.dias){
+    for( let i=0; i<req.body.dias.length; i++){
+        dia = req.body.dias[i]
         newPlan.dias.push(dia)
         console.log(dia)
     }
