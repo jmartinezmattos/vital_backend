@@ -106,20 +106,6 @@ router.post('/planes', isAuth, async (req, res)=> {
     res.send(newPlan)
 })
 
-//Agregar foto de perfil
-router.post('/picture', isAuth, async (req, res)=> {
-    
-    try {
-        req.user.img = req.body.img
-        req.user.markModified("img")
-        req.user.save()
-    } catch (error) {
-        res.send(error)
-    }
-    
-})
-
-
 //Agregar un dia a un plan
 router.post('/planes/:idplan/dias', isAuth, async (req, res)=> {
 
@@ -226,7 +212,6 @@ router.delete('/planes/:idplan', isAuth, async (req, res)=> {
 
 //Cambiar pasword
 router.post('/changepassword', isAuth, async (req, res)=> {
-    
 
     try{
 

@@ -6,10 +6,6 @@ const Schema = mongoose.Schema;
 
 const ClienteSchema = new Schema({
 
-    img: { 
-        data: Buffer, 
-        contentType: String 
-    },
     username: { 
        type: String,
        unique : true,
