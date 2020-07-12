@@ -26,6 +26,19 @@ router.get('/:username', isAdmin, getClient,(req, res)=> {
     res.send(res.cliente)
 })
 
+//Getting one
+router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
+    
+    try{
+    Plan.findById(req.params.plan_asignado, function(err,docs) {
+        res.send(docs)    
+    });
+    }
+    catch{
+        res.send("No se encontro el plan asignado")
+    }
+})
+
 //Modificar un usuario DESDE ACA SE PUEDE MODIFICAR EL ADMIN CUIDADO
 router.put('/:username', isAdmin, getClient,(req, res)=> {
     var conditions = { username: req.params.username};

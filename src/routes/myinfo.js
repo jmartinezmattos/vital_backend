@@ -18,6 +18,18 @@ router.get('/', isAuth, async (req, res) => {
     res.send(datos)
 })
 
+//Getting one
+router.get('/plan_asignado', isAuth, async (req, res)=> {
+    
+    try{
+    Plan.findById(req.user.plan_asignado, function(err,docs) {
+        res.send(docs)    
+    });
+    }
+    catch{
+        res.send("No se encontro el plan asignado")
+    }
+})
 
 //Getting user planes
 router.get('/planes', isAuth, async (req, res) => {
