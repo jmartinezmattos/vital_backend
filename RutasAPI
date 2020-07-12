@@ -97,6 +97,9 @@ POST
 /myinfo/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones (U)
     Agregar una sesion a un ejercicio
 
+/myinfo/plan_asignado/dias/:iddia/ejercicios/:idejercicio/sesiones (U)
+    Agregar una sesion al plan asignado
+
 PUT
 /myinfo (U)
     Modifica informacion del usuario

@@ -50,9 +50,11 @@ const sessionStore = new MongoStore({
 
 app.use(session({
     secret: "secreto", //despues cambiarlo por variable de ambiente
+    name:"cookie-vital",
     resave: false,
     saveUninitialized: true,
     store: sessionStore,
+    sameSite: 'none',
     cookie: {
         maxAge: 1000*60*60*24 //esto es un dia
     }
