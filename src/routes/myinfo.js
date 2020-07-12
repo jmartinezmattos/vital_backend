@@ -31,6 +31,29 @@ router.get('/plan_asignado', isAuth, async (req, res)=> {
     }
 })
 
+//Getting one
+router.post('/plan_asignado/dias/:iddia/ejercicios/:idejercicio/sesiones', isAuth, async (req, res)=> {
+    
+    try{
+    Plan.findById(req.user.plan_asignado, function(err,docs) {
+
+        newSession = new Session(req.body)
+
+        docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio;})[0].sesiones.push(newSession)
+        docs.markModified('dias')
+        docs.markModified('ejercicios')
+        docs.markModified('sesiones')
+        docs.save()
+
+        res.send(newSession)
+    });
+    }
+    catch{
+        res.send("Error")
+    }
+    
+})
+
 //Getting user planes
 router.get('/planes', isAuth, async (req, res) => {
     Plan.find({'_id': { $in: req.user.planes}}, function(err,docs) {

@@ -26,7 +26,7 @@ router.get('/:username', isAdmin, getClient,(req, res)=> {
     res.send(res.cliente)
 })
 
-//Getting one
+//Getting plan asignado
 router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
     
     try{
@@ -38,6 +38,13 @@ router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
         res.send("No se encontro el plan asignado")
     }
 })
+
+//Post plan asignado
+router.post('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
+    
+    
+})
+
 
 //Modificar un usuario DESDE ACA SE PUEDE MODIFICAR EL ADMIN CUIDADO
 router.put('/:username', isAdmin, getClient,(req, res)=> {
