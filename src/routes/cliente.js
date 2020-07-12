@@ -188,6 +188,9 @@ router.post('/', async (req, res)=> {
     const cliente = new Cliente({
         username: req.body.username,
         nombre: req.body.nombre,
+        fecha_nacimiento: req.body.fecha_nacimiento,
+        nro_contacto: req.body.nro_contacto,
+        mail: req.body.mail,
         admin: admin,
         hash: hash,
         salt: salt
