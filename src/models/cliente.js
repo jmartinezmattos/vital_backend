@@ -17,8 +17,8 @@ const ClienteSchema = new Schema({
         required: true,
         default: "Sin nombre"
     },
-    nacimiento: Date,
-    nro_contacto: Number,
+    fecha_nacimiento: Date,
+    nro_contacto: String,
     mail: String,
     hash: String,
     salt: String,
