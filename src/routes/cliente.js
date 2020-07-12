@@ -84,6 +84,27 @@ router.get('/:username/planes/:idplan', isAdmin, getClient,(req, res)=> {
 
 })
 
+//Eliminar un plan de un cliente
+router.delete('/:username/planes/:idplan', isAdmin, getClient,(req, res)=> {
+    
+    try{
+        Plan.findByIdAndRemove(req.params.idplan, function(err,docs) {
+            
+            indice = req.cliente.planes.indexOf(req.params.idplan)
+            req.cliente.planes.splice(indice)
+            req.cliente.markModified('planes')
+            req.cliente.save()
+          
+            res.send("Eliminado")
+        });
+    }catch(error){
+        console.log(error)
+        res.send("Error")
+    }
+
+})
+
+
 //Obtener un dis de un plan de un cliente
 router.get('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
     
