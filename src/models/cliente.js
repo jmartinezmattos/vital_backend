@@ -26,7 +26,8 @@ const ClienteSchema = new Schema({
         type:Boolean,
         default: false
     },
-    planes: [mongoose.Schema.Types.ObjectId]
+    planes: [mongoose.Schema.Types.ObjectId],
+    plan_asignado: mongoose.Schema.Types.ObjectId
 
 });
 
