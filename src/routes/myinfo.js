@@ -177,6 +177,35 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones', isAu
 })
 
 
+//Borrar una sesion de un ejercicio
+router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idsesion', isAuth, async (req, res)=> {
+
+    if(req.user.planes.includes(req.params.idplan)){
+        
+        const newSesion = new Session(req.body)
+        try{
+            plan = await Plan.findById(req.params.idplan)
+            
+            sesiones = plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
+            indice = sesiones.indexOf(req.params.idsesion)
+            sesiones.splice(indice)
+            
+            plan.markModified('dias')
+            plan.markModified('ejercicios')
+            plan.markModified('sesiones')
+            plan.save()
+        }
+        catch{
+            res.send("Error")
+        }
+        
+    }
+    else{
+        res.send("El usuario no contiene ese plan")
+    }
+})
+
+
 
 
 //Modificar un plan
