@@ -131,6 +131,7 @@ router.post('/:username/planes/:idplan/dias', isAdmin, getClient,(req, res)=> {
 
     Plan.findById(req.params.idplan, function(err,docs) {
         docs.dias.push(newDay)
+        docs.markModified('dias')
         docs.save()
     });
 
@@ -214,10 +215,10 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 })
 
 //Deleting 
-router.delete('/:username', isAdmin, getClient, async (req, res)=> {
+router.post('/:username/borrar', isAdmin, getClient, async (req, res)=> {
     try{
         await res.cliente.remove()
-        res.json({message: `Cliente con id: ${req.params.id} eliminado`})
+        res.json({message: `Cliente con el: ${req.params.username} eliminado`})
     }catch (err){
         res.status(500).json({message: err.message})
     }

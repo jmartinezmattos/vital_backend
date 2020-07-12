@@ -177,6 +177,35 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones', isAu
 })
 
 
+//Borrar una sesion de un ejercicio
+router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idsesion', isAuth, async (req, res)=> {
+
+    if(req.user.planes.includes(req.params.idplan)){
+        
+        const newSesion = new Session(req.body)
+        try{
+            plan = await Plan.findById(req.params.idplan)
+            
+            sesiones = plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
+            indice = sesiones.indexOf(req.params.idsesion)
+            sesiones.splice(indice, 1)
+            
+            plan.markModified('dias')
+            plan.markModified('ejercicios')
+            plan.markModified('sesiones')
+            plan.save()
+        }
+        catch{
+            res.send("Error")
+        }
+        
+    }
+    else{
+        res.send("El usuario no contiene ese plan")
+    }
+})
+
+
 
 
 //Modificar un plan
@@ -212,16 +241,22 @@ router.delete('/planes/:idplan', isAuth, async (req, res)=> {
 
 //Cambiar pasword
 router.post('/changepassword', isAuth, async (req, res)=> {
-    
-    const saltHash = generatePassword(req.body.password);
-    const salt = saltHash.salt;
-    const hash = saltHash.hash;
 
-    req.user.salt = salt;
-    req.user.hash = hash;
+    try{
 
-    req.user.save()
-    res.send("Contra cambiada")
+        const saltHash = generatePassword(req.body.newPassword);
+        const salt = saltHash.salt;
+        const hash = saltHash.hash;
+
+        req.user.salt = salt;
+        req.user.hash = hash;
+
+        req.user.save()
+        res.send("Contra cambiada")
+    }
+    catch(error){
+        res.send("error")
+    }
 })
 
 module.exports = router
