@@ -217,7 +217,7 @@ router.patch('/', async (req, res)=> {//esta la hacemos despues, es con save()
 router.delete('/:username', isAdmin, getClient, async (req, res)=> {
     try{
         await res.cliente.remove()
-        res.json({message: `Cliente con id: ${req.params.id} eliminado`})
+        res.json({message: `Cliente con el username: ${req.params.username} eliminado`})
     }catch (err){
         res.status(500).json({message: err.message})
     }
