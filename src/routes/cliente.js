@@ -42,7 +42,14 @@ router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
 //Post plan asignado
 router.post('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
     
-    
+    try{
+        req.cliente.plan_asignado = req.body.plan_asignado
+        req.cliente.save()
+        res.send(req.cliente.plan_asignado)
+    }
+    catch(err){
+     res.send("error")
+    }
 })
 
 
@@ -249,7 +256,6 @@ async function getClient(req, res, next){ //faltaria que el get sea segun la ced
     res.cliente=cliente //IMPORTANTE ESTO SE USA DESPUES
     next()
 }
-
 
 
 module.exports = router
