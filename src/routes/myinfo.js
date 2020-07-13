@@ -192,6 +192,13 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
                     sesiones = docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
                     indice = sesiones.indexOf(req.params.idsesion)
                     sesiones.splice(indice, 1)
+                    docs.markModified('dias')
+                    docs.markModified('ejercicios')
+                    docs.markModified('sesiones')
+
+                    console.log("Antes del save")
+
+                    docs.save()
                 }) 
             }
             catch(err){
@@ -202,13 +209,7 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
             console.log("Aca llegue")
 
 
-            plan.markModified('dias')
-            plan.markModified('ejercicios')
-            plan.markModified('sesiones')
-
-            console.log("Antes del save")
-
-            plan.save()
+            
             res.send("Todo OK")
         }
         catch{
