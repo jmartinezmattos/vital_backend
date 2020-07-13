@@ -42,7 +42,7 @@ router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
 //Post plan asignado
 router.post('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
     
-    
+        console.log(req.cliente)
         req.cliente.plan_asignado = req.body.plan_asignado
         req.cliente.save()
         res.send(`plan_asignado = ${req.cliente.plan_asignado}`)
