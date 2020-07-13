@@ -42,10 +42,10 @@ router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
 //Post plan asignado
 router.post('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
     
-        console.log(req.cliente)
-        req.cliente.plan_asignado = req.body.plan_asignado
-        req.cliente.save()
-        res.send(`plan_asignado = ${req.cliente.plan_asignado}`)
+        console.log(res.cliente)
+        res.cliente.plan_asignado = req.body.plan_asignado
+        res.cliente.save()
+        res.send(`plan_asignado = ${res.cliente.plan_asignado}`)
     
     
 })
@@ -105,10 +105,10 @@ router.delete('/:username/planes/:idplan', isAdmin, getClient,(req, res)=> {
     try{
         Plan.findByIdAndRemove(req.params.idplan, function(err,docs) {
             
-            indice = req.cliente.planes.indexOf(req.params.idplan)
-            req.cliente.planes.splice(indice)
-            req.cliente.markModified('planes')
-            req.cliente.save()
+            indice = res.cliente.planes.indexOf(req.params.idplan)
+            res.cliente.planes.splice(indice)
+            res.cliente.markModified('planes')
+            res.cliente.save()
           
             res.send("Eliminado")
         });
