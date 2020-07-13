@@ -81,7 +81,9 @@ router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
 
 //Agregar un plan a un cliente
 router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
+    
     const newPlan = new Plan(req.body)
+    newPlan.markModified("dias")
     newPlan.save()
     id = newPlan.id
     res.cliente.planes.push(id);
