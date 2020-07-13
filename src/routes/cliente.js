@@ -42,14 +42,12 @@ router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
 //Post plan asignado
 router.post('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
     
-    try{
+    
         req.cliente.plan_asignado = req.body.plan_asignado
         req.cliente.save()
-        res.send(req.cliente.plan_asignado)
-    }
-    catch(err){
-     res.send("error")
-    }
+        res.send(`plan_asignado = ${req.cliente.plan_asignado}`)
+    
+    
 })
 
 
