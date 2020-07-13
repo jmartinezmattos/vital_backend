@@ -184,15 +184,26 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
         
         //const newSesion = new Session(req.body)
         try{
-            plan = await Plan.findById(req.params.idplan)
+
+            console.log("KKasd")
+
+            plan = Plan.findById(req.params.idplan)
             
+            console.log("KK")
+
             sesiones = plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
             indice = sesiones.indexOf(req.params.idsesion)
             sesiones.splice(indice, 1)
             
+            console.log("Aca llegue")
+
+
             plan.markModified('dias')
             plan.markModified('ejercicios')
             plan.markModified('sesiones')
+
+            console.log("Antes del save")
+
             plan.save()
         }
         catch{
