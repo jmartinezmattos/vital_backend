@@ -76,12 +76,12 @@ router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
 router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
     
     const newPlan = new Plan(req.body)
-    console.log(req.body.dias)
-    for( let i=0; i<req.body.dias.length; i++){
-        dia = req.body.dias[i]
-        newPlan.dias.push(dia)
-        console.log(dia)
-    }
+    console.log(req.body)
+    // for( let i=0; i<req.body.dias.length; i++){
+    //     dia = req.body.dias[i]
+    //     newPlan.dias.push(dia)
+    //     console.log(dia)
+    // }
     newPlan.markModified("dias")
     newPlan.save()
     id = newPlan.id
