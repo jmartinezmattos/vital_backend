@@ -6,7 +6,8 @@ const SesionSchema = new Schema({
     nombre: String,
     series: Number,
     intensidad: String,
-    tiempo: String
+    tiempo: String,
+    repeticiones: Number
 
 })
 
