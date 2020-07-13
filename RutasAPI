@@ -108,6 +108,9 @@ PUT
     Modifica un plan del usuario
 
 Delete
+
+/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idsesion (U) en realidad es un post
+
 /myinfo/planes/:idplan (U)
     Elimina un plan del usuario
 

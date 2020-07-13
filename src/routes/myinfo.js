@@ -182,7 +182,7 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
 
     if(req.user.planes.includes(req.params.idplan)){
         
-        const newSesion = new Session(req.body)
+        //const newSesion = new Session(req.body)
         try{
             plan = await Plan.findById(req.params.idplan)
             
