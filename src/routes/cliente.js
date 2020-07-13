@@ -81,9 +81,7 @@ router.get('/:username/planes', isAdmin, getClient,(req, res)=> {
 router.post('/:username/planes', isAdmin, getClient,(req, res)=> {
     
     
-    json = JSON.parse(req.body)
-    const newPlan = new Plan(json)
-    console.log(json)
+    const newPlan = new Plan(req.body)
     newPlan.markModified("dias")
     newPlan.save()
     id = newPlan.id
