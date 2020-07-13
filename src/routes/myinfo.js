@@ -188,16 +188,16 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
             console.log("Antes de buscar plan")
             console.log(`Id plan: ${req.params.idplan}`)
             try{
-                plan = Plan.findById(req.params.idplan)
+                Plan.findById(req.params.idplan, function(err,docs) { 
+                    sesiones = docs.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
+                    indice = sesiones.indexOf(req.params.idsesion)
+                    sesiones.splice(indice, 1)
+                }) 
             }
             catch(err){
                 res.send("Error al buscar el plan")
             }
             console.log("KK")
-
-            sesiones = plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
-            indice = sesiones.indexOf(req.params.idsesion)
-            sesiones.splice(indice, 1)
             
             console.log("Aca llegue")
 
