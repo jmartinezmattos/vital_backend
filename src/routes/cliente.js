@@ -48,7 +48,7 @@ router.post('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
         res.send(req.cliente.plan_asignado)
     }
     catch(err){
-     res.send("error")
+     res.send(`error req.body.plan_asignado = ${req.body.plan_asignado}`)
     }
 })
 
