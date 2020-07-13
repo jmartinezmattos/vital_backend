@@ -209,6 +209,7 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
             console.log("Antes del save")
 
             plan.save()
+            res.send("Todo OK")
         }
         catch{
             res.send("Error")
