@@ -185,10 +185,14 @@ router.post('/planes/:idplan/dias/:iddia/ejercicios/:idejercicio/sesiones/:idses
         //const newSesion = new Session(req.body)
         try{
 
-            console.log("KKasd")
-
-            plan = Plan.findById(req.params.idplan)
-            
+            console.log("Antes de buscar plan")
+            console.log(`Id plan: ${req.params.idplan}`)
+            try{
+                plan = Plan.findById(req.params.idplan)
+            }
+            catch(err){
+                res.send("Error al buscar el plan")
+            }
             console.log("KK")
 
             sesiones = plan.dias.filter(item => {return item._id == req.params.iddia;})[0].ejercicios.filter(item => {return item._id == req.params.idejercicio})[0].sesiones
