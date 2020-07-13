@@ -30,7 +30,7 @@ router.get('/:username', isAdmin, getClient,(req, res)=> {
 router.get('/:username/plan_asignado', isAdmin, getClient,(req, res)=> {
     
     try{
-    Plan.findById(req.params.plan_asignado, function(err,docs) {
+    Plan.findById(req.body.plan_asignado, function(err,docs) {
         res.send(docs)    
     });
     }
